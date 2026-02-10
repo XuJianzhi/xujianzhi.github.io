@@ -16,5 +16,6 @@
 - [Wan2.2](./models_test/TI2V/Wan2.2.md)
 
 ## IT2VA
-- [Wan2.2](./models_test/IT2VA/MOVA.md)
+- [MOVA](./models_test/IT2VA/MOVA.md)
+  示例 [](./assets/MOVA/single_person_udf_5.mp4) 示例
 
