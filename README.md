@@ -4,8 +4,8 @@
 
 ## TIA2V
 - [AnyTalker](./models_test/TIA2V/AnyTalker.md)
-- [FramePack](./models_test/TIA2V/LongCat-Video.md)
-- [FramePack](./models_test/TIA2V/SoulX-FlashTalk.md)
+- [LongCat-Video](./models_test/TIA2V/LongCat-Video.md)
+- [SoulX-FlashTalk](./models_test/TIA2V/SoulX-FlashTalk.md)
 
 ## TI2I
 - [Qwen-Image-Edit](./models_test/TI2I/Qwen-Image-Edit.md) 图像编辑
