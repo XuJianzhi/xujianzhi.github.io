@@ -1,6 +1,11 @@
 # xujianzhi.github.io
 
-# 开源模型-我测的结果
+# 开源模型-我实测的结果
+
+## TIA2V
+- [AnyTalker](./models_test/TIA2V/AnyTalker.md)
+- [FramePack](./models_test/TIA2V/LongCat-Video.md)
+- [FramePack](./models_test/TIA2V/SoulX-FlashTalk.md)
 
 ## TI2I
 - [Qwen-Image-Edit](./models_test/TI2I/Qwen-Image-Edit.md) 图像编辑
@@ -13,3 +18,4 @@
 
 ## IT2VA
 - [Wan2.2](./models_test/IT2VA/MOVA.md)
+
