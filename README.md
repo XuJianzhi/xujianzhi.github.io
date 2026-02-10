@@ -9,7 +9,6 @@
 
 ## TI2I
 - [Qwen-Image-Edit](./models_test/TI2I/Qwen-Image-Edit.md) 图像编辑
-- [FramePack](./models_test/TI2V/FramePack.md)
 
 ## TI2V 
 - [FramePack](./models_test/TI2V/FramePack.md)
