@@ -1,6 +1,6 @@
 # xujianzhi.github.io
 
-# 模型评测导航
+# 开源模型-我测的结果
 
 ## TI2I
 - [Qwen-Image-Edit](./models_test/TI2I/Qwen-Image-Edit.md) 图像编辑
