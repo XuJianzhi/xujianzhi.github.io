@@ -18,5 +18,5 @@
 ## IT2VA
 - [MOVA](./models_test/IT2VA/MOVA.md)
   
-  示例 [](./assets/MOVA/single_person_udf_5.mp4) 示例
+  示例 [MOVA视频示例下载](./assets/MOVA/single_person_udf_5.mp4) 示例
 
