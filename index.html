@@ -257,8 +257,6 @@
             background: #fff;
             transition: transform 0.2s ease;
             cursor: pointer;
-            position: relative;
-            aspect-ratio: 16/9;
         }
         
         .media-item:hover {
@@ -268,51 +266,58 @@
         
         .media-item img, .media-item video {
             width: 100%;
-            height: 100%;
+            height: 100px;
             object-fit: cover;
             display: block;
         }
         
         .media-label {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
             padding: 6px;
             font-size: 11px;
             text-align: center;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
+            background: #f6f8fa;
+            color: #586069;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
         
-        /* 视频播放按钮样式 */
-        .media-item.video-item::before {
-            content: '▶';
+        /* 视频容器样式 */
+        .video-container {
+            background: white;
+            border: 1px solid #e1e4e8;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .video-container h3 {
+            margin-bottom: 15px;
+            color: #24292e;
+            font-size: 18px;
+        }
+        
+        .responsive-video {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            border-radius: 8px;
+        }
+        
+        .responsive-video video {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            opacity: 0.8;
-            transition: opacity 0.2s;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
         
-        .media-item.video-item:hover::before {
-            opacity: 1;
-        }
-        
-        /* 模态框样式 */
+        /* 模态框样式 - 已修复视频显示问题 */
         .modal {
             display: none;
             position: fixed;
@@ -333,61 +338,41 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
-        .modal-content img, 
-        .modal-content video {
-            width: 100%;
-            height: 100%;
+        /* 修复视频显示问题 */
+        .modal-content video, 
+        .modal-content img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
             object-fit: contain;
             display: block;
         }
         
-        .modal-content video {
-            width: auto;
-            max-width: 100%;
-            max-height: 100%;
-        }
-        
-        .modal-header {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 20px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
-            color: white;
-            z-index: 2;
-        }
-        
-        .modal-title {
-            font-size: 16px;
-            font-weight: 500;
-            text-align: center;
+        /* 针对视频的特别优化 */
+        .modal-content.video-modal {
+            background: #000;
         }
         
         .close-modal {
             position: absolute;
             top: 20px;
-            right: 20px;
+            right: 30px;
             color: white;
             font-size: 40px;
             font-weight: bold;
             cursor: pointer;
             z-index: 1001;
             transition: color 0.2s;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 50%;
         }
         
         .close-modal:hover {
-            background: rgba(0, 0, 0, 0.7);
+            color: #ccc;
         }
         
         @keyframes fadeIn {
@@ -431,28 +416,10 @@
                 grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             }
             
+            /* 移动端模态框优化 */
             .modal-content {
                 max-width: 95%;
                 max-height: 80%;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .media-gallery {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .modal-content {
-                max-width: 98%;
-                max-height: 70%;
-            }
-            
-            .close-modal {
-                top: 10px;
-                right: 10px;
-                font-size: 30px;
-                width: 30px;
-                height: 30px;
             }
         }
         
@@ -487,15 +454,6 @@
         
         ::-webkit-scrollbar-thumb:hover {
             background: #a8a8a8;
-        }
-        
-        /* 视频控制条样式优化 */
-        .modal-content video::-webkit-media-controls {
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-        
-        .modal-content video::-webkit-media-controls-panel {
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
         }
     </style>
 </head>
@@ -559,20 +517,20 @@
                         <p>xxxxxxxxxx</p>
                     </div>
                     <div class="media-gallery">
-                        <div class="media-item video-item" data-src="/assets/AnyTalker/a1_with_audio.mp4" data-type="video" data-title="AnyTalker演示1">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/AnyTalker/a1_with_audio.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/AnyTalker/a1_with_audio.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">a1_with_audio.mp4</div>
                         </div>
-                        <div class="media-item video-item" data-src="/assets/AnyTalker/guodegang_with_audio.mp4" data-type="video" data-title="AnyTalker演示2">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/AnyTalker/guodegang_with_audio.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/AnyTalker/guodegang_with_audio.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">guodegang_with_audio.mp4</div>
                         </div>
-                        <div class="media-item video-item" data-src="/assets/AnyTalker/bbbbb.mp4" data-type="video" data-title="AnyTalker演示3">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/AnyTalker/bbbbb.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/AnyTalker/bbbbb.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">bbbbb.mp4</div>
@@ -587,26 +545,26 @@
                         <p>xxxxxxxxxx</p>
                     </div>
                     <div class="media-gallery">
-                        <div class="media-item video-item" data-src="/assets/LongCat-Video/TIA2V/7_15s.mp4" data-type="video" data-title="LongCat-Video演示1">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/LongCat-Video/TIA2V/7_15s.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/LongCat-Video/TIA2V/7_15s.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">7_15s.mp4</div>
                         </div>
-                        <div class="media-item video-item" data-src="/assets/LongCat-Video/TIA2V/ai2v_2_node_udf_03（不动嘴）.mp4" data-type="video" data-title="LongCat-Video演示2">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/LongCat-Video/TIA2V/ai2v_2_node_udf_03（不动嘴）.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/LongCat-Video/TIA2V/ai2v_2_node_udf_03（不动嘴）.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">不动嘴演示</div>
                         </div>
-                        <div class="media-item video-item" data-src="/assets/LongCat-Video/TIA2V/ai2v_2_node_udf_07_5s_text_8_audio_2.mp4" data-type="video" data-title="LongCat-Video演示3">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/LongCat-Video/TIA2V/ai2v_2_node_udf_07_5s_text_8_audio_2.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/LongCat-Video/TIA2V/ai2v_2_node_udf_07_5s_text_8_audio_2.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">文本+音频</div>
                         </div>
-                        <div class="media-item video-item" data-src="/assets/LongCat-Video/TIA2V/ai2v_2_node_udf_04.mp4" data-type="video" data-title="LongCat-Video演示4">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/LongCat-Video/TIA2V/ai2v_2_node_udf_04.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/LongCat-Video/TIA2V/ai2v_2_node_udf_04.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">ai2v_2_node_udf_04.mp4</div>
@@ -621,8 +579,8 @@
                         <p>xxxxxxxxxx</p>
                     </div>
                     <div class="media-gallery">
-                        <div class="media-item video-item" data-src="/assets/SoulX-FlashTalk/896-1280.mp4" data-type="video" data-title="SoulX-FlashTalk演示">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/SoulX-FlashTalk/896-1280.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/SoulX-FlashTalk/896-1280.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">896-1280.mp4</div>
@@ -647,15 +605,15 @@
                         <p>xxxxxxxxxx</p>
                     </div>
                     <div class="media-gallery">
-                        <div class="media-item" data-src="/assets/Qwen-Image-Edit/image (2).webp" data-type="image" data-title="Qwen-Image-Edit演示1">
+                        <div class="media-item" data-src="/assets/Qwen-Image-Edit/image (2).webp" data-type="image">
                             <img src="/assets/Qwen-Image-Edit/image (2).webp" alt="Qwen-Image-Edit演示" loading="lazy">
                             <div class="media-label">image (2).webp</div>
                         </div>
-                        <div class="media-item" data-src="/assets/Qwen-Image-Edit/image (6).webp" data-type="image" data-title="Qwen-Image-Edit演示2">
+                        <div class="media-item" data-src="/assets/Qwen-Image-Edit/image (6).webp" data-type="image">
                             <img src="/assets/Qwen-Image-Edit/image (6).webp" alt="Qwen-Image-Edit演示" loading="lazy">
                             <div class="media-label">image (6).webp</div>
                         </div>
-                        <div class="media-item" data-src="/assets/Qwen-Image-Edit/man_car_2.webp" data-type="image" data-title="Qwen-Image-Edit演示3">
+                        <div class="media-item" data-src="/assets/Qwen-Image-Edit/man_car_2.webp" data-type="image">
                             <img src="/assets/Qwen-Image-Edit/man_car_2.webp" alt="Qwen-Image-Edit演示" loading="lazy">
                             <div class="media-label">man_car_2.webp</div>
                         </div>
@@ -669,7 +627,7 @@
                         <p>xxxxxxxxxx</p>
                     </div>
                     <div class="media-gallery">
-                        <div class="media-item" data-src="/assets/DreamOmni2/0c0fef7b-742d-4406-93db-76ebf44a72f0.png" data-type="image" data-title="DreamOmni2演示">
+                        <div class="media-item" data-src="/assets/DreamOmni2/0c0fef7b-742d-4406-93db-76ebf44a72f0.png" data-type="image">
                             <img src="/assets/DreamOmni2/0c0fef7b-742d-4406-93db-76ebf44a72f0.png" alt="DreamOmni2演示" loading="lazy">
                             <div class="media-label">0c0fef7b.png</div>
                         </div>
@@ -683,11 +641,11 @@
                         <p>xxxxxxxxxx</p>
                     </div>
                     <div class="media-gallery">
-                        <div class="media-item" data-src="/assets/Flux-Kontext/image.webp" data-type="image" data-title="Flux-Kontext演示1">
+                        <div class="media-item" data-src="/assets/Flux-Kontext/image.webp" data-type="image">
                             <img src="/assets/Flux-Kontext/image.webp" alt="Flux-Kontext演示" loading="lazy">
                             <div class="media-label">image.webp</div>
                         </div>
-                        <div class="media-item" data-src="/assets/Flux-Kontext/middle_1_change.png" data-type="image" data-title="Flux-Kontext演示2">
+                        <div class="media-item" data-src="/assets/Flux-Kontext/middle_1_change.png" data-type="image">
                             <img src="/assets/Flux-Kontext/middle_1_change.png" alt="Flux-Kontext演示" loading="lazy">
                             <div class="media-label">middle_1_change.png</div>
                         </div>
@@ -711,7 +669,7 @@
                         <p>xxxxxxxxxx</p>
                     </div>
                     <div class="media-gallery">
-                        <div class="media-item" data-src="/assets/OmniGen2/OmniGen2.webp" data-type="image" data-title="OmniGen2演示">
+                        <div class="media-item" data-src="/assets/OmniGen2/OmniGen2.webp" data-type="image">
                             <img src="/assets/OmniGen2/OmniGen2.webp" alt="OmniGen2演示" loading="lazy">
                             <div class="media-label">OmniGen2.webp</div>
                         </div>
@@ -725,19 +683,19 @@
                         <p>xxxxxxxxxx</p>
                     </div>
                     <div class="media-gallery">
-                        <div class="media-item" data-src="/assets/Fooocus/use1.png" data-type="image" data-title="Fooocus演示1">
+                        <div class="media-item" data-src="/assets/Fooocus/use1.png" data-type="image">
                             <img src="/assets/Fooocus/use1.png" alt="Fooocus演示" loading="lazy">
                             <div class="media-label">use1.png</div>
                         </div>
-                        <div class="media-item" data-src="/assets/Fooocus/image (17).png" data-type="image" data-title="Fooocus演示2">
+                        <div class="media-item" data-src="/assets/Fooocus/image (17).png" data-type="image">
                             <img src="/assets/Fooocus/image (17).png" alt="Fooocus演示" loading="lazy">
                             <div class="media-label">image (17).png</div>
                         </div>
-                        <div class="media-item" data-src="/assets/Fooocus/image (7).png" data-type="image" data-title="Fooocus演示3">
+                        <div class="media-item" data-src="/assets/Fooocus/image (7).png" data-type="image">
                             <img src="/assets/Fooocus/image (7).png" alt="Fooocus演示" loading="lazy">
                             <div class="media-label">image (7).png</div>
                         </div>
-                        <div class="media-item" data-src="/assets/Fooocus/image_38.png" data-type="image" data-title="Fooocus演示4">
+                        <div class="media-item" data-src="/assets/Fooocus/image_38.png" data-type="image">
                             <img src="/assets/Fooocus/image_38.png" alt="Fooocus演示" loading="lazy">
                             <div class="media-label">image_38.png</div>
                         </div>
@@ -761,26 +719,26 @@
                         <p>xxxxxxxxxx</p>
                     </div>
                     <div class="media-gallery">
-                        <div class="media-item video-item" data-src="/assets/FramePack/251214_230628_741_370_final.mp4" data-type="video" data-title="FramePack演示1">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/FramePack/251214_230628_741_370_final.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/FramePack/251214_230628_741_370_final.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">251214_230628.mp4</div>
                         </div>
-                        <div class="media-item video-item" data-src="/assets/FramePack/251214_233515_381_5351_final.mp4" data-type="video" data-title="FramePack演示2">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/FramePack/251214_233515_381_5351_final.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/FramePack/251214_233515_381_5351_final.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">251214_233515.mp4</div>
                         </div>
-                        <div class="media-item video-item" data-src="/assets/FramePack/image - 2025-12-12T160416.744_251216_214933_300_9064_final.mp4" data-type="video" data-title="FramePack演示3">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/FramePack/image - 2025-12-12T160416.744_251216_214933_300_9064_final.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/FramePack/image - 2025-12-12T160416.744_251216_214933_300_9064_final.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">160416.744.mp4</div>
                         </div>
-                        <div class="media-item video-item" data-src="/assets/FramePack/image - 2025-12-12T170848.731_251217_045841_676_7761_final.mp4" data-type="video" data-title="FramePack演示4">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/FramePack/image - 2025-12-12T170848.731_251217_045841_676_7761_final.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/FramePack/image - 2025-12-12T170848.731_251217_045841_676_7761_final.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">170848.731.mp4</div>
@@ -795,44 +753,44 @@
                         <p>xxxxxxxxxx</p>
                     </div>
                     <div class="media-gallery">
-                        <div class="media-item video-item" data-src="/assets/LongCat-Video/TI2V/a1.mp4" data-type="video" data-title="LongCat-Video演示1">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/LongCat-Video/TI2V/a1.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/LongCat-Video/TI2V/a1.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">a1.mp4</div>
                         </div>
-                        <div class="media-item video-item" data-src="/assets/LongCat-Video/TI2V/a5.mp4" data-type="video" data-title="LongCat-Video演示2">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/LongCat-Video/TI2V/a5.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/LongCat-Video/TI2V/a5.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">a5.mp4</div>
                         </div>
-                        <div class="media-item video-item" data-src="/assets/LongCat-Video/TI2V/a6.mp4" data-type="video" data-title="LongCat-Video演示3">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/LongCat-Video/TI2V/a6.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/LongCat-Video/TI2V/a6.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">a6.mp4</div>
                         </div>
-                        <div class="media-item video-item" data-src="/assets/LongCat-Video/TI2V/v1.mp4" data-type="video" data-title="LongCat-Video演示4">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/LongCat-Video/TI2V/v1.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/LongCat-Video/TI2V/v1.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">v1.mp4</div>
                         </div>
-                        <div class="media-item video-item" data-src="/assets/LongCat-Video/TI2V/v4.mp4" data-type="video" data-title="LongCat-Video演示5">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/LongCat-Video/TI2V/v4.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/LongCat-Video/TI2V/v4.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">v4.mp4</div>
                         </div>
-                        <div class="media-item video-item" data-src="/assets/LongCat-Video/TI2V/man_car_1.mp4" data-type="video" data-title="LongCat-Video演示6">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/LongCat-Video/TI2V/man_car_1.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/LongCat-Video/TI2V/man_car_1.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">man_car_1.mp4</div>
                         </div>
-                        <div class="media-item video-item" data-src="/assets/LongCat-Video/TI2V/man_car_2.mp4" data-type="video" data-title="LongCat-Video演示7">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/LongCat-Video/TI2V/man_car_2.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/LongCat-Video/TI2V/man_car_2.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">man_car_2.mp4</div>
@@ -847,8 +805,8 @@
                         <p>xxxxxxxxxx</p>
                     </div>
                     <div class="media-gallery">
-                        <div class="media-item video-item" data-src="/assets/Wan2.2/TI2V/i2v-A14B_1280-720_1_A_woman_is_positioned_centrally_against_a_studio_b_20251226_051100.mp4" data-type="video" data-title="Wan2.2演示">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/Wan2.2/TI2V/i2v-A14B_1280-720_1_A_woman_is_positioned_centrally_against_a_studio_b_20251226_051100.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/Wan2.2/TI2V/i2v-A14B_1280-720_1_A_woman_is_positioned_centrally_against_a_studio_b_20251226_051100.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">i2v-A14B演示</div>
@@ -873,8 +831,8 @@
                         <p>xxxxxxxxxx</p>
                     </div>
                     <div class="media-gallery">
-                        <div class="media-item video-item" data-src="/assets/MOVA/single_person_udf_5.mp4" data-type="video" data-title="MOVA演示">
-                            <video preload="metadata" poster="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjY4IiB2aWV3Qm94PSIwIDAgMTIwIDY4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iNjgiIGZpbGw9IiNmMmYyZjIiLz48cGF0aCBkPSJNNDYgMzRMMzYgNDBWMjhMNDYgMzRaIiBmaWxsPSIjYzJjMmMyIi8+PC9zdmc+">
+                        <div class="media-item" data-src="/assets/MOVA/single_person_udf_5.mp4" data-type="video">
+                            <video preload="metadata">
                                 <source src="/assets/MOVA/single_person_udf_5.mp4" type="video/mp4">
                             </video>
                             <div class="media-label">single_person_udf_5.mp4</div>
@@ -894,9 +852,6 @@
     <!-- 模态框 -->
     <div class="modal" id="mediaModal">
         <span class="close-modal" id="closeModal">&times;</span>
-        <div class="modal-header">
-            <div class="modal-title" id="modalTitle"></div>
-        </div>
         <div class="modal-content" id="modalContent"></div>
     </div>
 
@@ -959,7 +914,6 @@
             const modal = document.getElementById('mediaModal');
             const closeModal = document.getElementById('closeModal');
             const modalContent = document.getElementById('modalContent');
-            const modalTitle = document.getElementById('modalTitle');
             const mediaItems = document.querySelectorAll('.media-item');
             
             // 点击媒体项打开模态框
@@ -967,16 +921,17 @@
                 item.addEventListener('click', function() {
                     const src = this.getAttribute('data-src');
                     const type = this.getAttribute('data-type');
-                    const title = this.getAttribute('data-title') || '';
                     
                     modalContent.innerHTML = '';
-                    modalTitle.textContent = title;
                     
                     if (type === 'video') {
                         const video = document.createElement('video');
                         video.controls = true;
                         video.autoplay = true;
-                        video.classList.add('modal-media');
+                        video.style.width = 'auto';
+                        video.style.height = 'auto';
+                        video.style.maxWidth = '100%';
+                        video.style.maxHeight = '100%';
                         
                         const source = document.createElement('source');
                         source.src = src;
@@ -984,62 +939,34 @@
                         
                         video.appendChild(source);
                         modalContent.appendChild(video);
+                        
+                        // 添加视频类的特定样式
+                        modalContent.classList.add('video-modal');
                     } else if (type === 'image') {
                         const img = document.createElement('img');
                         img.src = src;
-                        img.classList.add('modal-media');
+                        img.style.width = 'auto';
+                        img.style.height = 'auto';
+                        img.style.maxWidth = '100%';
+                        img.style.maxHeight = '100%';
+                        img.style.objectFit = 'contain';
                         modalContent.appendChild(img);
+                        
+                        // 移除视频类的特定样式
+                        modalContent.classList.remove('video-modal');
                     }
                     
                     modal.style.display = 'flex';
                     
-                    // 设置焦点到模态框，便于键盘操作
-                    modal.focus();
-                    
-                    // 视频加载完成后调整尺寸
-                    if (type === 'video') {
-                        const video = modalContent.querySelector('video');
-                        video.addEventListener('loadedmetadata', function() {
-                            adjustVideoSize(video);
-                        });
-                        
-                        // 也处理尺寸调整
-                        video.addEventListener('loadeddata', function() {
-                            adjustVideoSize(video);
-                        });
-                    }
+                    // 添加一个小的延迟确保样式生效
+                    setTimeout(() => {
+                        // 确保模态框内容居中
+                        modalContent.style.display = 'flex';
+                        modalContent.style.justifyContent = 'center';
+                        modalContent.style.alignItems = 'center';
+                    }, 10);
                 });
             });
-            
-            // 调整视频尺寸函数
-            function adjustVideoSize(video) {
-                const modalContent = document.querySelector('.modal-content');
-                const maxWidth = window.innerWidth * 0.9;
-                const maxHeight = window.innerHeight * 0.9;
-                
-                const videoWidth = video.videoWidth;
-                const videoHeight = video.videoHeight;
-                
-                // 计算保持宽高比的最大尺寸
-                let width = videoWidth;
-                let height = videoHeight;
-                
-                if (width > maxWidth) {
-                    const ratio = maxWidth / width;
-                    width = maxWidth;
-                    height = height * ratio;
-                }
-                
-                if (height > maxHeight) {
-                    const ratio = maxHeight / height;
-                    height = maxHeight;
-                    width = width * ratio;
-                }
-                
-                // 设置尺寸
-                video.style.width = width + 'px';
-                video.style.height = height + 'px';
-            }
             
             // 关闭模态框
             closeModal.addEventListener('click', function() {
@@ -1071,22 +998,6 @@
                         video.pause();
                     }
                 }
-            });
-            
-            // 窗口调整大小时重新调整视频尺寸
-            window.addEventListener('resize', function() {
-                if (modal.style.display === 'flex') {
-                    const video = modalContent.querySelector('video');
-                    if (video) {
-                        adjustVideoSize(video);
-                    }
-                }
-            });
-            
-            // 为所有视频项添加播放按钮指示
-            const videoItems = document.querySelectorAll('.media-item[data-type="video"]');
-            videoItems.forEach(item => {
-                item.classList.add('video-item');
             });
         });
     </script>
