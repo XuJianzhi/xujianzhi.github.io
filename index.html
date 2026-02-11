@@ -184,6 +184,39 @@
             line-height: 1.4;
         }
         
+        /* 媒体展示样式 */
+        .media-gallery {
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+        }
+        
+        .media-item {
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid #e1e4e8;
+            background: #fff;
+        }
+        
+        .media-item img, .media-item video {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .media-label {
+            padding: 5px;
+            font-size: 11px;
+            text-align: center;
+            background: #f6f8fa;
+            color: #586069;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
         /* 视频容器样式 */
         .video-container {
             background: white;
@@ -213,6 +246,10 @@
             .main-content {
                 margin-left: 0;
             }
+            
+            .media-gallery {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
         }
     </style>
 </head>
@@ -231,15 +268,16 @@
                 <li><a href="#ti2i">TI2I - 文本生成图像</a></li>
                 <li><a href="#ti2v">TI2V - 文本生成视频</a></li>
                 <li><a href="#it2va">IT2VA - 图像生成音视频</a></li>
+                <li><a href="#other">其他模型</a></li>
             </ul>
         </div>
         
         <div class="nav-category">
             <h3>📊 统计信息</h3>
             <ul class="nav-links">
-                <li><a href="#stats">已评测模型: 7个</a></li>
-                <li><a href="#updates">最近更新: 2024.01</a></li>
-                <li><a href="#progress">完成度: 85%</a></li>
+                <li><a href="#stats">已评测模型: 12个</a></li>
+                <li><a href="#updates">媒体文件: 25个</a></li>
+                <li><a href="#progress">完成度: 90%</a></li>
             </ul>
         </div>
         
@@ -270,14 +308,68 @@
                 <div class="model-card">
                     <h4><a href="./models_test/TIA2V/AnyTalker.md">AnyTalker</a></h4>
                     <p class="model-description">语音驱动面部动画生成，支持多种语言输入</p>
+                    <div class="media-gallery">
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/AnyTalker/a1_with_audio.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">a1_with_audio.mp4</div>
+                        </div>
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/AnyTalker/guodegang_with_audio.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">guodegang_with_audio.mp4</div>
+                        </div>
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/AnyTalker/bbbbb.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">bbbbb.mp4</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="model-card">
                     <h4><a href="./models_test/TIA2V/LongCat-Video.md">LongCat-Video</a></h4>
                     <p class="model-description">长视频生成模型，支持复杂场景连续性</p>
+                    <div class="media-gallery">
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/LongCat-Video/TIA2V/7_15s.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">7_15s.mp4</div>
+                        </div>
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/LongCat-Video/TIA2V/ai2v_2_node_udf_03（不动嘴）.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">不动嘴演示</div>
+                        </div>
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/LongCat-Video/TIA2V/ai2v_2_node_udf_07_5s_text_8_audio_2.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">文本+音频</div>
+                        </div>
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/LongCat-Video/TIA2V/ai2v_2_node_udf_04.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">ai2v_2_node_udf_04.mp4</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="model-card">
                     <h4><a href="./models_test/TIA2V/SoulX-FlashTalk.md">SoulX-FlashTalk</a></h4>
                     <p class="model-description">快速语音到视频合成，实时性优秀</p>
+                    <div class="media-gallery">
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/SoulX-FlashTalk/896-1280.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">896-1280.mp4</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -292,6 +384,20 @@
                 <div class="model-card">
                     <h4><a href="./models_test/TI2I/Qwen-Image-Edit.md">Qwen-Image-Edit</a></h4>
                     <p class="model-description">基于Qwen的图像编辑模型，支持复杂指令</p>
+                    <div class="media-gallery">
+                        <div class="media-item">
+                            
+                            <div class="media-label">image (2).webp</div>
+                        </div>
+                        <div class="media-item">
+                            
+                            <div class="media-label">image (6).webp</div>
+                        </div>
+                        <div class="media-item">
+                            
+                            <div class="media-label">man_car_2.webp</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -306,14 +412,92 @@
                 <div class="model-card">
                     <h4><a href="./models_test/TI2V/FramePack.md">FramePack</a></h4>
                     <p class="model-description">帧打包技术，提升视频生成效率</p>
+                    <div class="media-gallery">
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/FramePack/251214_230628_741_370_final.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">251214_230628.mp4</div>
+                        </div>
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/FramePack/251214_233515_381_5351_final.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">251214_233515.mp4</div>
+                        </div>
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/FramePack/image - 2025-12-12T160416.744_251216_214933_300_9064_final.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">160416.744.mp4</div>
+                        </div>
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/FramePack/image - 2025-12-12T170848.731_251217_045841_676_7761_final.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">170848.731.mp4</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="model-card">
                     <h4><a href="./models_test/TI2V/LongCat-Video.md">LongCat-Video</a></h4>
                     <p class="model-description">长序列视频生成，场景连贯性测试</p>
+                    <div class="media-gallery">
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/LongCat-Video/TI2V/a1.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">a1.mp4</div>
+                        </div>
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/LongCat-Video/TI2V/a5.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">a5.mp4</div>
+                        </div>
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/LongCat-Video/TI2V/a6.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">a6.mp4</div>
+                        </div>
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/LongCat-Video/TI2V/v1.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">v1.mp4</div>
+                        </div>
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/LongCat-Video/TI2V/v4.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">v4.mp4</div>
+                        </div>
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/LongCat-Video/TI2V/man_car_1.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">man_car_1.mp4</div>
+                        </div>
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/LongCat-Video/TI2V/man_car_2.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">man_car_2.mp4</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="model-card">
                     <h4><a href="./models_test/TI2V/Wan2.2.md">Wan2.2</a></h4>
                     <p class="model-description">轻量级视频生成，快速推理演示</p>
+                    <div class="media-gallery">
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/Wan2.2/TI2V/i2v-A14B_1280-720_1_A_woman_is_positioned_centrally_against_a_studio_b_20251226_051100.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">i2v-A14B演示</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -328,23 +512,88 @@
                 <div class="model-card">
                     <h4><a href="./models_test/IT2VA/MOVA.md">MOVA</a></h4>
                     <p class="model-description">多模态生成模型，图像到音视频合成</p>
+                    <div class="media-gallery">
+                        <div class="media-item">
+                            <video controls>
+                                <source src="./assets/MOVA/single_person_udf_5.mp4" type="video/mp4">
+                            </video>
+                            <div class="media-label">single_person_udf_5.mp4</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            <!-- 视频演示 -->
-            <div class="video-container">
-                <h3>🎥 MOVA 模型演示视频</h3>
-                <video width="100%" controls>
-                    <source src="../assets/MOVA/single_person_udf_5.mp4" type="video/mp4">
-                    您的浏览器不支持视频标签，请直接
-                    <a href="../assets/MOVA/single_person_udf_5.mp4">下载视频</a>
-                </video>
+        </section>
+
+        <!-- 其他模型部分 -->
+        <section id="other" class="model-section">
+            <div class="section-header">
+                <span class="section-icon">🔧</span>
+                <h2 class="section-title">其他模型</h2>
+            </div>
+            <div class="model-grid">
+                <div class="model-card">
+                    <h4><a href="#">DreamOmni2</a></h4>
+                    <p class="model-description">多功能生成模型，支持多种任务</p>
+                    <div class="media-gallery">
+                        <div class="media-item">
+                            
+                            <div class="media-label">0c0fef7b.png</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="model-card">
+                    <h4><a href="#">Flux-Kontext</a></h4>
+                    <p class="model-description">上下文感知生成模型</p>
+                    <div class="media-gallery">
+                        <div class="media-item">
+                            
+                            <div class="media-label">image.webp</div>
+                        </div>
+                        <div class="media-item">
+                            
+                            <div class="media-label">middle_1_change.png</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="model-card">
+                    <h4><a href="#">Fooocus</a></h4>
+                    <p class="model-description">专注式图像生成工具</p>
+                    <div class="media-gallery">
+                        <div class="media-item">
+                            
+                            <div class="media-label">use1.png</div>
+                        </div>
+                        <div class="media-item">
+                            
+                            <div class="media-label">image (17).png</div>
+                        </div>
+                        <div class="media-item">
+                            
+                            <div class="media-label">image (7).png</div>
+                        </div>
+                        <div class="media-item">
+                            
+                            <div class="media-label">image_38.png</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="model-card">
+                    <h4><a href="#">OmniGen2</a></h4>
+                    <p class="model-description">全能生成模型第二代</p>
+                    <div class="media-gallery">
+                        <div class="media-item">
+                            
+                            <div class="media-label">OmniGen2.webp</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- 页脚 -->
         <footer style="margin-top: 50px; padding-top: 20px; border-top: 1px solid #e1e4e8; text-align: center; color: #586069;">
             <p>© 2026 许健智 - 开源模型实测仓库 | 最后更新: 2026年2月</p>
+            <p style="font-size: 14px; margin-top: 10px;">总计展示: 12个模型，25个媒体文件</p>
         </footer>
     </main>
 
@@ -390,7 +639,35 @@
                     }
                 });
             });
-        });
-    </script>
-</body>
-</html>
+
+            // 媒体项点击事件 - 放大查看
+            document.querySelectorAll('.media-item video, .media-item img').forEach(media => {
+                media.addEventListener('click', function() {
+                    const src = this.tagName === 'VIDEO' ? 
+                        this.querySelector('source').src : this.src;
+                    
+                    // 创建模态框
+                    const modal = document.createElement('div');
+                    modal.style.position = 'fixed';
+                    modal.style.top = '0';
+                    modal.style.left = '0';
+                    modal.style.width = '100%';
+                    modal.style.height = '100%';
+                    modal.style.backgroundColor = 'rgba(0,0,0,0.8)';
+                    modal.style.display = 'flex';
+                    modal.style.justifyContent = 'center';
+                    modal.style.alignItems = 'center';
+                    modal.style.zIndex = '1000';
+                    
+                    // 创建内容
+                    const content = document.createElement('div');
+                    content.style.maxWidth = '90%';
+                    content.style.maxHeight = '90%';
+                    
+                    if (this.tagName === 'VIDEO') {
+                        const video = document.createElement('video');
+                        video.controls = true;
+                        video.autoplay = true;
+                        video.style.maxWidth = '100%';
+                        video.style.maxHeight = '100%';
+                        const source = document.createElement('source');
