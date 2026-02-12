@@ -317,7 +317,7 @@
             object-fit: contain;
         }
         
-        /* 模态框样式 - 完全重构的解决方案 */
+        /* 模态框样式 - 完整解决方案 */
         .modal {
             display: none;
             position: fixed;
@@ -344,32 +344,81 @@
             transition: all 0.3s ease;
         }
         
-        /* 默认模态框尺寸（横屏视频） */
+        /* 默认模态框尺寸（横屏内容） */
         .modal-content {
             max-width: 85vw;
             max-height: 85vh;
         }
         
+        /* 视频类型的内容 */
+        .modal-content.video-content {
+            background: #000;
+        }
+        
         /* 高窄视频（竖屏）的特殊处理 */
         .modal-content.tall-video {
-            max-height: 95vh !important; /* 竖屏视频可以更高 */
+            max-height: 95vh !important;
             max-width: 85vw;
         }
         
         /* 极端高窄视频的额外处理 */
         .modal-content.very-tall-video {
-            max-height: 98vh !important; /* 极端竖屏可以更高 */
-            overflow-y: auto; /* 如果还是太高，允许滚动 */
+            max-height: 98vh !important;
+            overflow-y: auto;
+        }
+        
+        /* 图片类型的内容 */
+        .modal-content.image-content {
+            background: #000;
+            overflow: auto; /* 图片允许滚动 */
+        }
+        
+        /* 长图片的特殊处理 */
+        .modal-content.tall-image {
+            max-height: 95vh !important;
+            max-width: 90vw;
+        }
+        
+        /* 极端长图片的处理 */
+        .modal-content.very-tall-image {
+            max-height: 98vh !important;
+            max-width: 95vw;
+            overflow-y: auto;
+        }
+        
+        /* 超长图片（比如网页截图）的专门处理 */
+        .modal-content.super-tall-image {
+            max-height: 98vh !important;
+            max-width: 98vw;
+            overflow-y: auto;
+            background: #111;
         }
         
         /* 视频元素样式 - 确保完整显示 */
-        .modal-content video, 
-        .modal-content img {
+        .modal-content video {
             display: block;
             max-width: 100%;
             max-height: 100%;
             width: auto;
             height: auto;
+            background: #000;
+        }
+        
+        /* 图片元素样式 - 确保完整显示 */
+        .modal-content img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            background: #000;
+        }
+        
+        /* 长图片的优化显示 */
+        .modal-content.tall-image img,
+        .modal-content.very-tall-image img,
+        .modal-content.super-tall-image img {
+            width: auto;
+            max-width: 100%;
+            max-height: none;
         }
         
         /* 高窄视频的容器优化 */
@@ -409,6 +458,29 @@
             font-size: 16px;
         }
         
+        /* 图片查看助手 */
+        .image-helper {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            z-index: 1002;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .image-helper:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.05);
+        }
+        
         /* 全屏状态下的特殊样式 */
         .modal:fullscreen {
             background: black;
@@ -422,7 +494,8 @@
             border-radius: 0;
         }
         
-        .modal:fullscreen .modal-content video {
+        .modal:fullscreen .modal-content video,
+        .modal:fullscreen .modal-content img {
             max-width: 100vw !important;
             max-height: 100vh !important;
             width: auto;
@@ -438,6 +511,12 @@
         .modal:fullscreen .fullscreen-btn {
             top: 25px;
             right: 100px;
+        }
+        
+        .modal:fullscreen .image-helper {
+            bottom: 25px;
+            right: 25px;
+            font-size: 14px;
         }
         
         /* 关闭按钮 */
@@ -457,8 +536,8 @@
             color: #ccc;
         }
         
-        /* 视频加载指示器 */
-        .video-loading {
+        /* 媒体加载指示器 */
+        .media-loading {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -515,20 +594,32 @@
                 max-height: 85vh;
             }
             
-            .modal-content.tall-video {
+            .modal-content.tall-video,
+            .modal-content.tall-image {
                 max-height: 90vh !important;
             }
             
-            .modal-content.very-tall-video {
+            .modal-content.very-tall-video,
+            .modal-content.very-tall-image,
+            .modal-content.super-tall-image {
                 max-height: 95vh !important;
             }
             
             /* 移动端按钮优化 */
+            .fullscreen-btn,
+            .image-helper {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+            
             .fullscreen-btn {
                 top: 10px;
                 right: 50px;
-                padding: 6px 10px;
-                font-size: 12px;
+            }
+            
+            .image-helper {
+                bottom: 10px;
+                right: 10px;
             }
             
             .close-modal {
@@ -555,6 +646,7 @@
         /* 滚动条样式 */
         ::-webkit-scrollbar {
             width: 8px;
+            height: 8px;
         }
         
         ::-webkit-scrollbar-track {
@@ -569,6 +661,25 @@
         
         ::-webkit-scrollbar-thumb:hover {
             background: #a8a8a8;
+        }
+        
+        /* 模态框滚动条样式 */
+        .modal-content::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+        
+        .modal-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+        }
+        
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
         }
     </style>
 </head>
@@ -1031,8 +1142,9 @@
             const modalContent = document.getElementById('modalContent');
             const mediaItems = document.querySelectorAll('.media-item');
             
-            // 当前播放的视频元素
-            let currentVideo = null;
+            // 当前播放的媒体元素
+            let currentMedia = null;
+            let isFullscreen = false;
             
             // 点击媒体项打开模态框
             mediaItems.forEach(item => {
@@ -1040,23 +1152,25 @@
                     const src = this.getAttribute('data-src');
                     const type = this.getAttribute('data-type');
                     
+                    // 清空之前的内容和样式
                     modalContent.innerHTML = '';
+                    modalContent.className = 'modal-content';
                     
                     if (type === 'video') {
                         // 创建视频容器
-                        const videoContainer = document.createElement('div');
-                        videoContainer.style.position = 'relative';
-                        videoContainer.style.display = 'flex';
-                        videoContainer.style.justifyContent = 'center';
-                        videoContainer.style.alignItems = 'center';
-                        videoContainer.style.width = '100%';
-                        videoContainer.style.height = '100%';
+                        const mediaContainer = document.createElement('div');
+                        mediaContainer.style.position = 'relative';
+                        mediaContainer.style.display = 'flex';
+                        mediaContainer.style.justifyContent = 'center';
+                        mediaContainer.style.alignItems = 'center';
+                        mediaContainer.style.width = '100%';
+                        mediaContainer.style.height = '100%';
                         
                         // 创建加载指示器
                         const loadingIndicator = document.createElement('div');
-                        loadingIndicator.className = 'video-loading';
-                        loadingIndicator.textContent = '加载中...';
-                        videoContainer.appendChild(loadingIndicator);
+                        loadingIndicator.className = 'media-loading';
+                        loadingIndicator.textContent = '视频加载中...';
+                        mediaContainer.appendChild(loadingIndicator);
                         
                         // 创建视频元素
                         const video = document.createElement('video');
@@ -1065,15 +1179,15 @@
                         video.style.maxHeight = '100%';
                         video.style.width = 'auto';
                         video.style.height = 'auto';
-                        video.style.display = 'none'; // 先隐藏，加载完成后再显示
+                        video.style.display = 'none';
                         
                         const source = document.createElement('source');
                         source.src = src;
                         source.type = 'video/mp4';
                         
                         video.appendChild(source);
-                        videoContainer.appendChild(video);
-                        modalContent.appendChild(videoContainer);
+                        mediaContainer.appendChild(video);
+                        modalContent.appendChild(mediaContainer);
                         
                         // 创建全屏按钮
                         const fullscreenBtn = document.createElement('button');
@@ -1081,24 +1195,7 @@
                         fullscreenBtn.innerHTML = '<span class="icon">⛶</span> 全屏';
                         fullscreenBtn.onclick = function(e) {
                             e.stopPropagation();
-                            
-                            if (!document.fullscreenElement) {
-                                if (modal.requestFullscreen) {
-                                    modal.requestFullscreen();
-                                } else if (modal.webkitRequestFullscreen) {
-                                    modal.webkitRequestFullscreen();
-                                } else if (modal.msRequestFullscreen) {
-                                    modal.msRequestFullscreen();
-                                }
-                            } else {
-                                if (document.exitFullscreen) {
-                                    document.exitFullscreen();
-                                } else if (document.webkitExitFullscreen) {
-                                    document.webkitExitFullscreen();
-                                } else if (document.msExitFullscreen) {
-                                    document.msExitFullscreen();
-                                }
-                            }
+                            toggleFullscreen();
                         };
                         
                         modalContent.appendChild(fullscreenBtn);
@@ -1109,38 +1206,19 @@
                             loadingIndicator.style.display = 'none';
                             video.style.display = 'block';
                             
-                            // 检测视频宽高比
+                            // 设置内容类型
+                            modalContent.classList.add('video-content');
+                            
+                            // 检测视频宽高比，智能调整模态框
                             const aspectRatio = video.videoWidth / video.videoHeight;
-                            const windowAspectRatio = window.innerWidth / window.innerHeight;
-                            
-                            // 清除之前的类
-                            modalContent.classList.remove('tall-video', 'very-tall-video');
-                            
-                            // 根据宽高比智能调整模态框
-                            if (aspectRatio < 0.7) {
-                                // 非常高窄的视频（9:13或更窄）
-                                modalContent.classList.add('very-tall-video');
-                            } else if (aspectRatio < 1) {
-                                // 一般竖屏视频
-                                modalContent.classList.add('tall-video');
-                            }
-                            
-                            // 计算视频完整显示所需的高度
-                            const videoHeight = video.videoHeight;
-                            const videoWidth = video.videoWidth;
-                            const windowHeight = window.innerHeight;
-                            
-                            // 如果视频高度超过窗口高度的85%，进一步调整
-                            if (videoHeight > windowHeight * 0.85) {
-                                modalContent.classList.add('very-tall-video');
-                            }
+                            adjustModalForAspectRatio(aspectRatio, 'video');
                             
                             // 开始播放视频
                             video.play().catch(e => {
                                 console.log('自动播放被阻止:', e);
                             });
                             
-                            currentVideo = video;
+                            currentMedia = video;
                         };
                         
                         // 视频加载错误处理
@@ -1149,55 +1227,158 @@
                         };
                         
                     } else if (type === 'image') {
+                        // 创建图片容器
+                        const mediaContainer = document.createElement('div');
+                        mediaContainer.style.position = 'relative';
+                        mediaContainer.style.display = 'flex';
+                        mediaContainer.style.justifyContent = 'center';
+                        mediaContainer.style.alignItems = 'center';
+                        mediaContainer.style.width = '100%';
+                        mediaContainer.style.height = '100%';
+                        
+                        // 创建加载指示器
+                        const loadingIndicator = document.createElement('div');
+                        loadingIndicator.className = 'media-loading';
+                        loadingIndicator.textContent = '图片加载中...';
+                        mediaContainer.appendChild(loadingIndicator);
+                        
+                        // 创建图片元素
                         const img = new Image();
-                        img.src = src;
                         img.style.maxWidth = '100%';
                         img.style.maxHeight = '100%';
                         img.style.width = 'auto';
                         img.style.height = 'auto';
-                        img.style.objectFit = 'contain';
+                        img.style.display = 'none';
+                        
+                        mediaContainer.appendChild(img);
+                        modalContent.appendChild(mediaContainer);
+                        
+                        // 创建图片查看助手按钮
+                        const imageHelper = document.createElement('div');
+                        imageHelper.className = 'image-helper';
+                        imageHelper.innerHTML = '<span class="icon">🔍</span> 查看完整图片';
+                        imageHelper.title = '在新标签页中打开原图';
+                        imageHelper.onclick = function(e) {
+                            e.stopPropagation();
+                            window.open(src, '_blank');
+                        };
+                        
+                        modalContent.appendChild(imageHelper);
                         
                         // 图片加载完成后的处理
                         img.onload = function() {
-                            // 图片不需要特殊宽高比处理
-                            modalContent.classList.remove('tall-video', 'very-tall-video');
+                            // 隐藏加载指示器
+                            loadingIndicator.style.display = 'none';
+                            img.style.display = 'block';
+                            
+                            // 设置内容类型
+                            modalContent.classList.add('image-content');
+                            
+                            // 检测图片宽高比，智能调整模态框
+                            const aspectRatio = img.naturalWidth / img.naturalHeight;
+                            adjustModalForAspectRatio(aspectRatio, 'image');
+                            
+                            currentMedia = img;
                         };
                         
-                        modalContent.appendChild(img);
+                        // 图片加载错误处理
+                        img.onerror = function() {
+                            loadingIndicator.textContent = '图片加载失败';
+                        };
+                        
+                        // 开始加载图片
+                        img.src = src;
                     }
                     
                     modal.style.display = 'flex';
                 });
             });
             
+            // 智能调整模态框尺寸的函数
+            function adjustModalForAspectRatio(aspectRatio, mediaType) {
+                // 清除之前的样式类
+                modalContent.classList.remove('tall-video', 'very-tall-video', 
+                                            'tall-image', 'very-tall-image', 'super-tall-image');
+                
+                if (mediaType === 'video') {
+                    // 视频处理逻辑
+                    if (aspectRatio < 0.7) {
+                        // 非常高窄的视频（9:13或更窄）
+                        modalContent.classList.add('very-tall-video');
+                    } else if (aspectRatio < 1) {
+                        // 一般竖屏视频
+                        modalContent.classList.add('tall-video');
+                    }
+                } else if (mediaType === 'image') {
+                    // 图片处理逻辑 - 更加宽松的判断
+                    if (aspectRatio < 0.5) {
+                        // 极端长图（比如网页截图，宽高比小于0.5）
+                        modalContent.classList.add('super-tall-image');
+                    } else if (aspectRatio < 0.8) {
+                        // 一般长图
+                        modalContent.classList.add('very-tall-image');
+                    } else if (aspectRatio < 1) {
+                        // 一般竖屏图片
+                        modalContent.classList.add('tall-image');
+                    }
+                }
+            }
+            
+            // 全屏切换函数
+            function toggleFullscreen() {
+                if (!document.fullscreenElement) {
+                    if (modal.requestFullscreen) {
+                        modal.requestFullscreen();
+                    } else if (modal.webkitRequestFullscreen) {
+                        modal.webkitRequestFullscreen();
+                    } else if (modal.msRequestFullscreen) {
+                        modal.msRequestFullscreen();
+                    }
+                    isFullscreen = true;
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                    }
+                    isFullscreen = false;
+                }
+            }
+            
             // 关闭模态框
             closeModal.addEventListener('click', function() {
                 modal.style.display = 'none';
                 // 停止视频播放
-                if (currentVideo) {
-                    currentVideo.pause();
-                    currentVideo = null;
+                if (currentMedia && currentMedia.tagName === 'VIDEO') {
+                    currentMedia.pause();
                 }
+                currentMedia = null;
             });
             
             // 点击模态框背景关闭
             modal.addEventListener('click', function(e) {
                 if (e.target === modal) {
                     modal.style.display = 'none';
-                    if (currentVideo) {
-                        currentVideo.pause();
-                        currentVideo = null;
+                    if (currentMedia && currentMedia.tagName === 'VIDEO') {
+                        currentMedia.pause();
                     }
+                    currentMedia = null;
                 }
             });
             
             // ESC键关闭模态框
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && modal.style.display === 'flex') {
-                    modal.style.display = 'none';
-                    if (currentVideo) {
-                        currentVideo.pause();
-                        currentVideo = null;
+                    if (isFullscreen) {
+                        toggleFullscreen();
+                    } else {
+                        modal.style.display = 'none';
+                        if (currentMedia && currentMedia.tagName === 'VIDEO') {
+                            currentMedia.pause();
+                        }
+                        currentMedia = null;
                     }
                 }
             });
@@ -1208,56 +1389,36 @@
             document.addEventListener('msfullscreenchange', handleFullscreenChange);
             
             function handleFullscreenChange() {
-                const isFullscreen = document.fullscreenElement || 
-                                   document.webkitFullscreenElement || 
-                                   document.msFullscreenElement;
+                isFullscreen = !!(document.fullscreenElement || 
+                                 document.webkitFullscreenElement || 
+                                 document.msFullscreenElement);
                 
-                if (!isFullscreen) {
+                if (!isFullscreen && currentMedia && currentMedia.tagName === 'VIDEO') {
                     // 退出全屏时，恢复视频播放
-                    if (currentVideo && !currentVideo.paused) {
-                        currentVideo.play().catch(e => console.log('恢复播放失败:', e));
+                    if (!currentMedia.paused) {
+                        currentMedia.play().catch(e => console.log('恢复播放失败:', e));
                     }
                 }
             }
             
             // 窗口大小变化时重新调整
             window.addEventListener('resize', function() {
-                if (modal.style.display === 'flex' && currentVideo) {
-                    const aspectRatio = currentVideo.videoWidth / currentVideo.videoHeight;
-                    const windowAspectRatio = window.innerWidth / window.innerHeight;
-                    
-                    // 清除之前的类
-                    modalContent.classList.remove('tall-video', 'very-tall-video');
-                    
-                    // 根据宽高比重新应用类
-                    if (aspectRatio < 0.7) {
-                        modalContent.classList.add('very-tall-video');
-                    } else if (aspectRatio < 1) {
-                        modalContent.classList.add('tall-video');
+                if (modal.style.display === 'flex' && currentMedia) {
+                    let aspectRatio;
+                    if (currentMedia.tagName === 'VIDEO') {
+                        aspectRatio = currentMedia.videoWidth / currentMedia.videoHeight;
+                        adjustModalForAspectRatio(aspectRatio, 'video');
+                    } else if (currentMedia.tagName === 'IMG') {
+                        aspectRatio = currentMedia.naturalWidth / currentMedia.naturalHeight;
+                        adjustModalForAspectRatio(aspectRatio, 'image');
                     }
                 }
             });
             
-            // 双击视频进入/退出全屏
+            // 双击媒体进入/退出全屏
             modalContent.addEventListener('dblclick', function(e) {
                 if (e.target.tagName === 'VIDEO' || e.target.tagName === 'IMG') {
-                    if (!document.fullscreenElement) {
-                        if (modal.requestFullscreen) {
-                            modal.requestFullscreen();
-                        } else if (modal.webkitRequestFullscreen) {
-                            modal.webkitRequestFullscreen();
-                        } else if (modal.msRequestFullscreen) {
-                            modal.msRequestFullscreen();
-                        }
-                    } else {
-                        if (document.exitFullscreen) {
-                            document.exitFullscreen();
-                        } else if (document.webkitExitFullscreen) {
-                            document.webkitExitFullscreen();
-                        } else if (document.msExitFullscreen) {
-                            document.msExitFullscreen();
-                        }
-                    }
+                    toggleFullscreen();
                 }
             });
         });
