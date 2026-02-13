@@ -728,10 +728,10 @@
             <div class="nav-category">
                 <h3>🎯 快速导航</h3>
                 <ul class="nav-links">
-                    <li><a href="#tia2v" class="active">TIA2V - 语音驱动</a></li>
+                    <li><a href="#ti2v" class="active">TI2V - 文本生成视频</a></li>
+                    <li><a href="#tia2v">TIA2V - 语音驱动</a></li>
                     <li><a href="#ti2i">TI2I - 文本生成图像</a></li>
                     <li><a href="#t2i">T2I - 文本到图像</a></li>
-                    <li><a href="#ti2v">TI2V - 文本生成视频</a></li>
                     <li><a href="#it2va">IT2VA - 图像生成音视频</a></li>
                 </ul>
             </div>
@@ -773,227 +773,15 @@
                 <p class="description">基于实际部署和测试，提供客观、可复现的模型性能评估</p>
             </div>
 
-            <!-- TIA2V 部分 -->
-            <section id="tia2v" class="model-section slide-in-up">
-                <div class="section-header">
-                    <span class="section-icon">🎙️</span>
-                    <h2 class="section-title">TIA2V - 语音/文本驱动视频生成</h2>
-                </div>
-                <div class="model-grid">
-                    <div class="model-card">
-                        <h4><a href="./models_test/TIA2V/AnyTalker.md">AnyTalker</a></h4>
-                        <p class="model-description">结论是“不可用”。</p>
-                        <div class="model-review">
-                            <strong>我的评测：</strong>
-                            <p>出现较多的明显错误，比如 烂脸、不动嘴 等。效果较好的也存在动作夸张的问题，猜测其原因是训练集中过多的外国人的数据，不适合中国人。</p>
-                        </div>
-                        <div class="media-gallery">
-                            <div class="media-item" data-src="/assets/AnyTalker/a1_with_audio.mp4" data-type="video">
-                                <video preload="metadata">
-                                    <source src="/assets/AnyTalker/a1_with_audio.mp4" type="video/mp4">
-                                </video>
-                                <div class="media-label">a1_with_audio.mp4</div>
-                            </div>
-                            <div class="media-item" data-src="/assets/AnyTalker/guodegang_with_audio.mp4" data-type="video">
-                                <video preload="metadata">
-                                    <source src="/assets/AnyTalker/guodegang_with_audio.mp4" type="video/mp4">
-                                </video>
-                                <div class="media-label">guodegang_with_audio.mp4</div>
-                            </div>
-                            <div class="media-item" data-src="/assets/AnyTalker/bbbbb.mp4" data-type="video">
-                                <video preload="metadata">
-                                    <source src="/assets/AnyTalker/bbbbb.mp4" type="video/mp4">
-                                </video>
-                                <div class="media-label">bbbbb.mp4</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="model-card">
-                        <h4><a href="./models_test/TIA2V/LongCat-Video.md">LongCat-Video</a></h4>
-                        <p class="model-description">结论是“可用”。</p>
-                        <div class="model-review">
-                            <strong>我的评测：</strong>
-                            <p>人的动作、多人动作、深景的人的动作等都很好，默认运镜是手持手机、摄像机的感觉，镜头很晃动，通过prompt可以控制镜头稳定。</p>
-                        </div>
-                        <div class="media-gallery">
-                            <div class="media-item" data-src="/assets/LongCat-Video/TIA2V/7_15s.mp4" data-type="video">
-                                <video preload="metadata">
-                                    <source src="/assets/LongCat-Video/TIA2V/7_15s.mp4" type="video/mp4">
-                                </video>
-                                <div class="media-label">7_15s.mp4</div>
-                            </div>
-                            <div class="media-item" data-src="/assets/LongCat-Video/TIA2V/ai2v_2_node_udf_03（不动嘴）.mp4" data-type="video">
-                                <video preload="metadata">
-                                    <source src="/assets/LongCat-Video/TIA2V/ai2v_2_node_udf_03（不动嘴）.mp4" type="video/mp4">
-                                </video>
-                                <div class="media-label">不动嘴演示</div>
-                            </div>
-                            <div class="media-item" data-src="/assets/LongCat-Video/TIA2V/ai2v_2_node_udf_07_5s_text_8_audio_2.mp4" data-type="video">
-                                <video preload="metadata">
-                                    <source src="/assets/LongCat-Video/TIA2V/ai2v_2_node_udf_07_5s_text_8_audio_2.mp4" type="video/mp4">
-                                </video>
-                                <div class="media-label">文本+音频</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="model-card">
-                        <h4><a href="./models_test/TIA2V/SoulX-FlashTalk.md">SoulX-FlashTalk</a></h4>
-                        <p class="model-description">结论是“部分可用”。</p>
-                        <div class="model-review">
-                            <strong>我的评测：</strong>
-                            <p>基本很好，部分示例会自动出现空手变出东西来，不说话时候也会把手臂高举有些假。其他没什么问题。大部分挺好。</p>
-                        </div>
-                        <div class="media-gallery">
-                            <div class="media-item" data-src="/assets/SoulX-FlashTalk/896-1280.mp4" data-type="video">
-                                <video preload="metadata">
-                                    <source src="/assets/SoulX-FlashTalk/896-1280.mp4" type="video/mp4">
-                                </video>
-                                <div class="media-label">896-1280.mp4</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- TI2I 部分 -->
-            <section id="ti2i" class="model-section slide-in-up">
-                <div class="section-header">
-                    <span class="section-icon">🖼️</span>
-                    <h2 class="section-title">TI2I - 文本生成图像</h2>
-                </div>
-                <div class="model-grid">
-                    <div class="model-card">
-                        <h4><a href="./models_test/TI2I/Qwen-Image-Edit.md">Qwen-Image-Edit</a></h4>
-                        <p class="model-description">结论是“可用”。</p>
-                        <div class="model-review">
-                            <strong>我的评测：</strong>
-                            <p>非常好。少量问题出在两个不同的物体放在一起时，比例出问题，我发的这几个“人+车”的是通过调整prompt“注意比例”之类的话纠正过来的，但也存在部分纠正不过来的问题，需要抽卡。</p>
-                        </div>
-                        <div class="media-gallery">
-                            <div class="media-item" data-src="/assets/Qwen-Image-Edit/image (2).webp" data-type="image">
-                                <img src="/assets/Qwen-Image-Edit/image (2).webp" alt="Qwen-Image-Edit演示" loading="lazy">
-                                <div class="media-label">image (2).webp</div>
-                            </div>
-                            <div class="media-item" data-src="/assets/Qwen-Image-Edit/image (6).webp" data-type="image">
-                                <img src="/assets/Qwen-Image-Edit/image (6).webp" alt="Qwen-Image-Edit演示" loading="lazy">
-                                <div class="media-label">image (6).webp</div>
-                            </div>
-                            <div class="media-item" data-src="/assets/Qwen-Image-Edit/man_car_2.webp" data-type="image">
-                                <img src="/assets/Qwen-Image-Edit/man_car_2.webp" alt="Qwen-Image-Edit演示" loading="lazy">
-                                <div class="media-label">man_car_2.webp</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="model-card">
-                        <h4><a href="./models_test/TI2I/DreamOmni2.md">DreamOmni2</a></h4>
-                        <p class="model-description">结论是“暂不知是否可用”</p>
-                        <div class="model-review">
-                            <strong>我的评测：</strong>
-                            <p>用和qwen-edit类似的prompt生成效果较差，在prompt要求“比例合适”的情况下，不符合比例合适的要求。效果不如qwen-edit。</p>
-                        </div>
-                        <div class="media-gallery">
-                            <div class="media-item" data-src="/assets/DreamOmni2/0c0fef7b-742d-4406-93db-76ebf44a72f0.png" data-type="image">
-                                <img src="/assets/DreamOmni2/0c0fef7b-742d-4406-93db-76ebf44a72f0.png" alt="DreamOmni2演示" loading="lazy">
-                                <div class="media-label">0c0fef7b.png</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="model-card">
-                        <h4><a href="./models_test/TI2I/Flux-Kontext.md">Flux-Kontext</a></h4>
-                        <p class="model-description">结论是“可用”</p>
-                        <div class="model-review">
-                            <strong>我的评测：</strong>
-                            <p>效果不错，人、车融合效果也不错，但比例不如qwen-edit。惊艳我的是它还能处理全景图，即车内全景图+外景全景图是可以融合的，且效果不错，但外景有所修改。其最大问题是清洗区最多1024*1024，车标模糊，且这种模糊不能通过超分解决。</p>
-                        </div>
-                        <div class="media-gallery">
-                            <div class="media-item" data-src="/assets/Flux-Kontext/image.webp" data-type="image">
-                                <img src="/assets/Flux-Kontext/image.webp" alt="Flux-Kontext演示" loading="lazy">
-                                <div class="media-label">image.webp</div>
-                            </div>
-                            <div class="media-item" data-src="/assets/Flux-Kontext/middle_1_change.png" data-type="image">
-                                <img src="/assets/Flux-Kontext/middle_1_change.png" alt="Flux-Kontext演示" loading="lazy">
-                                <div class="media-label">middle_1_change.png</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- T2I 部分 -->
-            <section id="t2i" class="model-section slide-in-up">
-                <div class="section-header">
-                    <span class="section-icon">🎨</span>
-                    <h2 class="section-title">T2I - 文本到图像</h2>
-                </div>
-                <div class="model-grid">
-                    <div class="model-card">
-                        <h4><a href="./models_test/T2I/OmniGen2.md">OmniGen2</a></h4>
-                        <p class="model-description">结论：“不太好”</p>
-                        <div class="model-review">
-                            <strong>我的评测：</strong>
-                            <p>生成效果不太好，但也凑活。人物略生硬。能较明显的发现是ai图。另外，前景的人和背景难以同时清晰，当然这也是几乎所有文生图共同的问题。</p>
-                        </div>
-                        <div class="media-gallery">
-                            <div class="media-item" data-src="/assets/OmniGen2/OmniGen2.webp" data-type="image">
-                                <img src="/assets/OmniGen2/OmniGen2.webp" alt="OmniGen2演示" loading="lazy">
-                                <div class="media-label">OmniGen2.webp</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="model-card">
-                        <h4><a href="./models_test/T2I/Fooocus.md">Fooocus</a></h4>
-                        <p class="model-description">专注式图像生成工具，用户体验优秀</p>
-                        <div class="model-review">
-                            <strong>我的评测：</strong>
-                            <p>界面友好，生成速度快，适合初学者使用</p>
-                        </div>
-                        <div class="media-gallery">
-                            <div class="media-item" data-src="/assets/Fooocus/use1.png" data-type="image">
-                                <img src="/assets/Fooocus/use1.png" alt="Fooocus演示" loading="lazy">
-                                <div class="media-label">use1.png</div>
-                            </div>
-                            <div class="media-item" data-src="/assets/Fooocus/image (17).png" data-type="image">
-                                <img src="/assets/Fooocus/image (17).png" alt="Fooocus演示" loading="lazy">
-                                <div class="media-label">image (17).png</div>
-                            </div>
-                            <div class="media-item" data-src="/assets/Fooocus/image (7).png" data-type="image">
-                                <img src="/assets/Fooocus/image (7).png" alt="Fooocus演示" loading="lazy">
-                                <div class="media-label">image (7).png</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- TI2V 部分 -->
+            <!-- ============= 顺序已严格按照要求调整 ============= -->
+            <!-- 1. TI2V - 文本生成视频 (LongCat-Video, FramePack) -->
             <section id="ti2v" class="model-section slide-in-up">
                 <div class="section-header">
                     <span class="section-icon">🎬</span>
                     <h2 class="section-title">TI2V - 文本生成视频</h2>
                 </div>
                 <div class="model-grid">
-                    <div class="model-card">
-                        <h4><a href="./models_test/TI2V/FramePack.md">FramePack</a></h4>
-                        <p class="model-description">结论是“可用”</p>
-                        <div class="model-review">
-                            <strong>我的评测：</strong>
-                            <p>加载东亚脸lora后能出很好的图，但部分图存在明显问题，如车内结构怪异等，需要抽卡。由于基模型完全不懂中国对脸的审美，所以加载脸lora的权重要调较高，出来的男人像都仿佛一张脸，女人脸还好一些。</p>
-                        </div>
-                        <div class="media-gallery">
-                            <div class="media-item" data-src="/assets/FramePack/251214_230628_741_370_final.mp4" data-type="video">
-                                <video preload="metadata">
-                                    <source src="/assets/FramePack/251214_230628_741_370_final.mp4" type="video/mp4">
-                                </video>
-                                <div class="media-label">251214_230628.mp4</div>
-                            </div>
-                            <div class="media-item" data-src="/assets/FramePack/251214_233515_381_5351_final.mp4" data-type="video">
-                                <video preload="metadata">
-                                    <source src="/assets/FramePack/251214_233515_381_5351_final.mp4" type="video/mp4">
-                                </video>
-                                <div class="media-label">251214_233515.mp4</div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- LongCat-Video (TI2V) 第一个 -->
                     <div class="model-card">
                         <h4><a href="./models_test/TI2V/LongCat-Video.md">LongCat-Video</a></h4>
                         <p class="model-description">长序列视频生成，场景连贯性测试，动态效果好</p>
@@ -1022,10 +810,233 @@
                             </div>
                         </div>
                     </div>
+                    <!-- FramePack 第二个 -->
+                    <div class="model-card">
+                        <h4><a href="./models_test/TI2V/FramePack.md">FramePack</a></h4>
+                        <p class="model-description">结论是“可用”</p>
+                        <div class="model-review">
+                            <strong>我的评测：</strong>
+                            <p>加载东亚脸lora后能出很好的图，但部分图存在明显问题，如车内结构怪异等，需要抽卡。由于基模型完全不懂中国对脸的审美，所以加载脸lora的权重要调较高，出来的男人像都仿佛一张脸，女人脸还好一些。</p>
+                        </div>
+                        <div class="media-gallery">
+                            <div class="media-item" data-src="/assets/FramePack/251214_230628_741_370_final.mp4" data-type="video">
+                                <video preload="metadata">
+                                    <source src="/assets/FramePack/251214_230628_741_370_final.mp4" type="video/mp4">
+                                </video>
+                                <div class="media-label">251214_230628.mp4</div>
+                            </div>
+                            <div class="media-item" data-src="/assets/FramePack/251214_233515_381_5351_final.mp4" data-type="video">
+                                <video preload="metadata">
+                                    <source src="/assets/FramePack/251214_233515_381_5351_final.mp4" type="video/mp4">
+                                </video>
+                                <div class="media-label">251214_233515.mp4</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- IT2VA 部分 -->
+            <!-- 2. TIA2V - 语音/文本驱动视频生成 (LongCat-Video, SoulX-FlashTalk, AnyTalker) -->
+            <section id="tia2v" class="model-section slide-in-up">
+                <div class="section-header">
+                    <span class="section-icon">🎙️</span>
+                    <h2 class="section-title">TIA2V - 语音/文本驱动视频生成</h2>
+                </div>
+                <div class="model-grid">
+                    <!-- LongCat-Video (TIA2V) 第一个 -->
+                    <div class="model-card">
+                        <h4><a href="./models_test/TIA2V/LongCat-Video.md">LongCat-Video</a></h4>
+                        <p class="model-description">结论是“可用”。</p>
+                        <div class="model-review">
+                            <strong>我的评测：</strong>
+                            <p>人的动作、多人动作、深景的人的动作等都很好，默认运镜是手持手机、摄像机的感觉，镜头很晃动，通过prompt可以控制镜头稳定。</p>
+                        </div>
+                        <div class="media-gallery">
+                            <div class="media-item" data-src="/assets/LongCat-Video/TIA2V/7_15s.mp4" data-type="video">
+                                <video preload="metadata">
+                                    <source src="/assets/LongCat-Video/TIA2V/7_15s.mp4" type="video/mp4">
+                                </video>
+                                <div class="media-label">7_15s.mp4</div>
+                            </div>
+                            <div class="media-item" data-src="/assets/LongCat-Video/TIA2V/ai2v_2_node_udf_03（不动嘴）.mp4" data-type="video">
+                                <video preload="metadata">
+                                    <source src="/assets/LongCat-Video/TIA2V/ai2v_2_node_udf_03（不动嘴）.mp4" type="video/mp4">
+                                </video>
+                                <div class="media-label">不动嘴演示</div>
+                            </div>
+                            <div class="media-item" data-src="/assets/LongCat-Video/TIA2V/ai2v_2_node_udf_07_5s_text_8_audio_2.mp4" data-type="video">
+                                <video preload="metadata">
+                                    <source src="/assets/LongCat-Video/TIA2V/ai2v_2_node_udf_07_5s_text_8_audio_2.mp4" type="video/mp4">
+                                </video>
+                                <div class="media-label">文本+音频</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- SoulX-FlashTalk 第二个 -->
+                    <div class="model-card">
+                        <h4><a href="./models_test/TIA2V/SoulX-FlashTalk.md">SoulX-FlashTalk</a></h4>
+                        <p class="model-description">结论是“部分可用”。</p>
+                        <div class="model-review">
+                            <strong>我的评测：</strong>
+                            <p>基本很好，部分示例会自动出现空手变出东西来，不说话时候也会把手臂高举有些假。其他没什么问题。大部分挺好。</p>
+                        </div>
+                        <div class="media-gallery">
+                            <div class="media-item" data-src="/assets/SoulX-FlashTalk/896-1280.mp4" data-type="video">
+                                <video preload="metadata">
+                                    <source src="/assets/SoulX-FlashTalk/896-1280.mp4" type="video/mp4">
+                                </video>
+                                <div class="media-label">896-1280.mp4</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- AnyTalker 第三个 -->
+                    <div class="model-card">
+                        <h4><a href="./models_test/TIA2V/AnyTalker.md">AnyTalker</a></h4>
+                        <p class="model-description">结论是“不可用”。</p>
+                        <div class="model-review">
+                            <strong>我的评测：</strong>
+                            <p>出现较多的明显错误，比如 烂脸、不动嘴 等。效果较好的也存在动作夸张的问题，猜测其原因是训练集中过多的外国人的数据，不适合中国人。</p>
+                        </div>
+                        <div class="media-gallery">
+                            <div class="media-item" data-src="/assets/AnyTalker/a1_with_audio.mp4" data-type="video">
+                                <video preload="metadata">
+                                    <source src="/assets/AnyTalker/a1_with_audio.mp4" type="video/mp4">
+                                </video>
+                                <div class="media-label">a1_with_audio.mp4</div>
+                            </div>
+                            <div class="media-item" data-src="/assets/AnyTalker/guodegang_with_audio.mp4" data-type="video">
+                                <video preload="metadata">
+                                    <source src="/assets/AnyTalker/guodegang_with_audio.mp4" type="video/mp4">
+                                </video>
+                                <div class="media-label">guodegang_with_audio.mp4</div>
+                            </div>
+                            <div class="media-item" data-src="/assets/AnyTalker/bbbbb.mp4" data-type="video">
+                                <video preload="metadata">
+                                    <source src="/assets/AnyTalker/bbbbb.mp4" type="video/mp4">
+                                </video>
+                                <div class="media-label">bbbbb.mp4</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. TI2I - 文本生成图像 (Qwen-Image-Edit, Flux-Kontext, DreamOmni2) -->
+            <section id="ti2i" class="model-section slide-in-up">
+                <div class="section-header">
+                    <span class="section-icon">🖼️</span>
+                    <h2 class="section-title">TI2I - 文本生成图像</h2>
+                </div>
+                <div class="model-grid">
+                    <!-- Qwen-Image-Edit 第一个 -->
+                    <div class="model-card">
+                        <h4><a href="./models_test/TI2I/Qwen-Image-Edit.md">Qwen-Image-Edit</a></h4>
+                        <p class="model-description">结论是“可用”。</p>
+                        <div class="model-review">
+                            <strong>我的评测：</strong>
+                            <p>非常好。少量问题出在两个不同的物体放在一起时，比例出问题，我发的这几个“人+车”的是通过调整prompt“注意比例”之类的话纠正过来的，但也存在部分纠正不过来的问题，需要抽卡。</p>
+                        </div>
+                        <div class="media-gallery">
+                            <div class="media-item" data-src="/assets/Qwen-Image-Edit/image (2).webp" data-type="image">
+                                <img src="/assets/Qwen-Image-Edit/image (2).webp" alt="Qwen-Image-Edit演示" loading="lazy">
+                                <div class="media-label">image (2).webp</div>
+                            </div>
+                            <div class="media-item" data-src="/assets/Qwen-Image-Edit/image (6).webp" data-type="image">
+                                <img src="/assets/Qwen-Image-Edit/image (6).webp" alt="Qwen-Image-Edit演示" loading="lazy">
+                                <div class="media-label">image (6).webp</div>
+                            </div>
+                            <div class="media-item" data-src="/assets/Qwen-Image-Edit/man_car_2.webp" data-type="image">
+                                <img src="/assets/Qwen-Image-Edit/man_car_2.webp" alt="Qwen-Image-Edit演示" loading="lazy">
+                                <div class="media-label">man_car_2.webp</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Flux-Kontext 第二个 -->
+                    <div class="model-card">
+                        <h4><a href="./models_test/TI2I/Flux-Kontext.md">Flux-Kontext</a></h4>
+                        <p class="model-description">结论是“可用”</p>
+                        <div class="model-review">
+                            <strong>我的评测：</strong>
+                            <p>效果不错，人、车融合效果也不错，但比例不如qwen-edit。惊艳我的是它还能处理全景图，即车内全景图+外景全景图是可以融合的，且效果不错，但外景有所修改。其最大问题是清洗区最多1024*1024，车标模糊，且这种模糊不能通过超分解决。</p>
+                        </div>
+                        <div class="media-gallery">
+                            <div class="media-item" data-src="/assets/Flux-Kontext/image.webp" data-type="image">
+                                <img src="/assets/Flux-Kontext/image.webp" alt="Flux-Kontext演示" loading="lazy">
+                                <div class="media-label">image.webp</div>
+                            </div>
+                            <div class="media-item" data-src="/assets/Flux-Kontext/middle_1_change.png" data-type="image">
+                                <img src="/assets/Flux-Kontext/middle_1_change.png" alt="Flux-Kontext演示" loading="lazy">
+                                <div class="media-label">middle_1_change.png</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- DreamOmni2 第三个 -->
+                    <div class="model-card">
+                        <h4><a href="./models_test/TI2I/DreamOmni2.md">DreamOmni2</a></h4>
+                        <p class="model-description">结论是“暂不知是否可用”</p>
+                        <div class="model-review">
+                            <strong>我的评测：</strong>
+                            <p>用和qwen-edit类似的prompt生成效果较差，在prompt要求“比例合适”的情况下，不符合比例合适的要求。效果不如qwen-edit。</p>
+                        </div>
+                        <div class="media-gallery">
+                            <div class="media-item" data-src="/assets/DreamOmni2/0c0fef7b-742d-4406-93db-76ebf44a72f0.png" data-type="image">
+                                <img src="/assets/DreamOmni2/0c0fef7b-742d-4406-93db-76ebf44a72f0.png" alt="DreamOmni2演示" loading="lazy">
+                                <div class="media-label">0c0fef7b.png</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. T2I - 文本到图像 (Fooocus, OmniGen2) -->
+            <section id="t2i" class="model-section slide-in-up">
+                <div class="section-header">
+                    <span class="section-icon">🎨</span>
+                    <h2 class="section-title">T2I - 文本到图像</h2>
+                </div>
+                <div class="model-grid">
+                    <!-- Fooocus 第一个 -->
+                    <div class="model-card">
+                        <h4><a href="./models_test/T2I/Fooocus.md">Fooocus</a></h4>
+                        <p class="model-description">专注式图像生成工具，用户体验优秀</p>
+                        <div class="model-review">
+                            <strong>我的评测：</strong>
+                            <p>界面友好，生成速度快，适合初学者使用</p>
+                        </div>
+                        <div class="media-gallery">
+                            <div class="media-item" data-src="/assets/Fooocus/use1.png" data-type="image">
+                                <img src="/assets/Fooocus/use1.png" alt="Fooocus演示" loading="lazy">
+                                <div class="media-label">use1.png</div>
+                            </div>
+                            <div class="media-item" data-src="/assets/Fooocus/image (17).png" data-type="image">
+                                <img src="/assets/Fooocus/image (17).png" alt="Fooocus演示" loading="lazy">
+                                <div class="media-label">image (17).png</div>
+                            </div>
+                            <div class="media-item" data-src="/assets/Fooocus/image (7).png" data-type="image">
+                                <img src="/assets/Fooocus/image (7).png" alt="Fooocus演示" loading="lazy">
+                                <div class="media-label">image (7).png</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- OmniGen2 第二个 -->
+                    <div class="model-card">
+                        <h4><a href="./models_test/T2I/OmniGen2.md">OmniGen2</a></h4>
+                        <p class="model-description">结论：“不太好”</p>
+                        <div class="model-review">
+                            <strong>我的评测：</strong>
+                            <p>生成效果不太好，但也凑活。人物略生硬。能较明显的发现是ai图。另外，前景的人和背景难以同时清晰，当然这也是几乎所有文生图共同的问题。</p>
+                        </div>
+                        <div class="media-gallery">
+                            <div class="media-item" data-src="/assets/OmniGen2/OmniGen2.webp" data-type="image">
+                                <img src="/assets/OmniGen2/OmniGen2.webp" alt="OmniGen2演示" loading="lazy">
+                                <div class="media-label">OmniGen2.webp</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. IT2VA - 图像生成音视频 (MOVA) -->
             <section id="it2va" class="model-section slide-in-up">
                 <div class="section-header">
                     <span class="section-icon">🎵</span>
